@@ -8,25 +8,25 @@
 <body>
   <h1>Hooked Web3 Provider tester</h1>
   <p>
-    Send 1 Ether between accounts registered both in the client and in the browser. As new accounts are chosen balances will be updated.
+    Send 1 Vapor between accounts registered both in the client and in the browser. As new accounts are chosen balances will be updated.
     <br>
-    <br>To use this properly, make sure you have at least one account that is managed by your Ethereum client. Then, you can add new browser
-    <br>accounts and pass Ether between each type of account. Underthe hood, all transactions sent from accounts handled by the browser will
-    <br>be rewritten and signed by ethereumjs-accounts.
+    <br>To use this properly, make sure you have at least one account that is managed by your Vapory client. Then, you can add new browser
+    <br>accounts and pass Vapor between each type of account. Underthe hood, all transactions sent from accounts handled by the browser will
+    <br>be rewritten and signed by vaporyjs-accounts.
     <br>
-    <br>Lastly, make sure you have an Ethereum client running via RPC at http://localhost:8545 :)
+    <br>Lastly, make sure you have an Vapory client running via RPC at http://localhost:8545 :)
   </p>
 
   <hr><br>
 
-  <strong>Send Ether</strong>
+  <strong>Send Vapor</strong>
   <br><br>
 
   <label>From</label>
   <select id="from_account">
     <optgroup class="in_client" label="Registered in Client (web3)">
     </optgroup>
-    <optgroup class="in_browser" label="Registered in Browser (ethereumjs-accounts)">
+    <optgroup class="in_browser" label="Registered in Browser (vaporyjs-accounts)">
     </optgroup>
   </select>
   <span id="from_balance"></span>
@@ -37,12 +37,12 @@
   <select id="to_account">
     <optgroup class="in_client" label="Registered in Client (web3)">
     </optgroup>
-    <optgroup class="in_browser" label="Registered in Browser (ethereumjs-accounts)">
+    <optgroup class="in_browser" label="Registered in Browser (vaporyjs-accounts)">
     </optgroup>
   </select>
   <span id="to_balance"></span>
 
-  <br><br><button id="send_transaction">Send 1 Ether</button>&nbsp;&nbsp;<button id="swap_addresses">Swap from/to</button>&nbsp;&nbsp;<button id="refresh_balances">Refresh balances</button>
+  <br><br><button id="send_transaction">Send 1 Vapor</button>&nbsp;&nbsp;<button id="swap_addresses">Swap from/to</button>&nbsp;&nbsp;<button id="refresh_balances">Refresh balances</button>
 
   <br><br><button id="add_new_account">Add new Browser account</button>
   <br><br>Note: for all new browser accounts, password is "passphrase" (no quotes)
@@ -88,20 +88,20 @@
       };
 
       var updateBalances = function() {
-        web3.eth.getBalance(from_account.val(), function(err, balance) {
+        web3.vap.getBalance(from_account.val(), function(err, balance) {
           // Use our BigNumber config.
           var b = new BigNumber(balance);
           $("#from_balance").html(b.toString());
         });
 
-        web3.eth.getBalance(to_account.val(), function(err, balance) {
+        web3.vap.getBalance(to_account.val(), function(err, balance) {
           // Use our BigNumber config.
           var b = new BigNumber(balance);
           $("#to_balance").html(b.toString());
         });
       };
 
-      web3.eth.getAccounts(function(err, in_client) {
+      web3.vap.getAccounts(function(err, in_client) {
         for (var i = 0; i < in_client.length; i++) {
           var address = in_client[i];
           addAddress(from_account.find(".in_client"), address);
@@ -135,7 +135,7 @@
         from_address = from_account.val();
         to_address = to_account.val();
 
-        web3.eth.sendTransaction({
+        web3.vap.sendTransaction({
           from: from_address,
           to: to_address,
           value: 1000000000000000000,

@@ -18,7 +18,7 @@
     "app.js": [
       "../node_modules/jquery/dist/jquery.min.js",
       "../node_modules/bignumber.js/bignumber.js",
-      "../node_modules/ethereumjs-accounts/dist/ethereumjs-accounts.js",
+      "../node_modules/vaporyjs-accounts/dist/vaporyjs-accounts.js",
       "hooked-web3-provider.es6"
     ],
     "index.html": "index.html"

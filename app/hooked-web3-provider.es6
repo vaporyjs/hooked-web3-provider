@@ -19,7 +19,7 @@ var factory = function(Web3) {
       }
 
       for (var request of requests) {
-        if (request.method == "eth_sendTransaction") {
+        if (request.method == "vap_sendTransaction") {
           throw new Error("HookedWeb3Provider does not support synchronous transactions. Please provide a callback.")
         }
       }
@@ -48,7 +48,7 @@ var factory = function(Web3) {
       this.rewritePayloads(0, requests, {}, finishedWithRewrite);
     }
 
-    // Rewrite all eth_sendTransaction payloads in the requests array.
+    // Rewrite all vap_sendTransaction payloads in the requests array.
     // This takes care of batch requests, and updates the nonces accordingly.
     rewritePayloads(index, requests, session_nonces, finished) {
       if (index >= requests.length) {
@@ -66,7 +66,7 @@ var factory = function(Web3) {
       };
 
       // If this isn't a transaction we can modify, ignore it.
-      if (payload.method != "eth_sendTransaction") {
+      if (payload.method != "vap_sendTransaction") {
         return next();
       }
 
@@ -89,13 +89,13 @@ var factory = function(Web3) {
             done(null, nonce);
           } else {
             // Include pending transactions, so the nonce is set accordingly.
-            // Note: "pending" doesn't seem to take effect for some Ethereum clients (geth),
+            // Note: "pending" doesn't seem to take effect for some Vapory clients (gvap),
             // hence the need for global_nonces.
             // We call directly to our own sendAsync method, because the web3 provider
             // is not guaranteed to be set.
             this.sendAsync({
               jsonrpc: '2.0',
-              method: 'eth_getTransactionCount',
+              method: 'vap_getTransactionCount',
               params: [sender, "pending"],
               id: (new Date()).getTime()
             }, function(err, result) {
@@ -137,7 +137,7 @@ var factory = function(Web3) {
               return next(err);
             }
 
-            payload.method = "eth_sendRawTransaction";
+            payload.method = "vap_sendRawTransaction";
             payload.params = [raw_tx];
             return next();
           });
@@ -150,7 +150,7 @@ var factory = function(Web3) {
 };
 
 if (typeof module !== 'undefined') {
-  module.exports = factory(require("web3"));
+  module.exports = factory(require("@vapory/web3"));
 } else {
   window.HookedWeb3Provider = factory(Web3);
 }

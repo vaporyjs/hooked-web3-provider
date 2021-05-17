@@ -1,12 +1,12 @@
 # DEPRECATED
-for rough equivalent see https://github.com/ethjs/ethjs-provider-signer
+for rough equivalent see https://github.com/vapjs/vapjs-provider-signer
 
 for advanced configuration see https://github.com/metamask/provider-engine
 
 
 # Hooked Web3 Provider
 
-The Hooked Web3 Provider is a normal HTTP Web3 provider that allows you to "hook in" an external transaction signer that can be used to sign transactions for accounts not managed by the Ethereum client (i.e., aren't managed by `geth`). An example transaction signer might be an external program or device that manages its own accounts and private keys. Together, the transaction signer and the web3 provider will use the Ethereum client to place signed transactions on the network.
+The Hooked Web3 Provider is a normal HTTP Web3 provider that allows you to "hook in" an external transaction signer that can be used to sign transactions for accounts not managed by the Vapory client (i.e., aren't managed by `gvap`). An example transaction signer might be an external program or device that manages its own accounts and private keys. Together, the transaction signer and the web3 provider will use the Vapory client to place signed transactions on the network.
 
 The goal of this library is to successfully modularize all the moving parts related to external transaction signing, to improve usability and encourage a separation of concerns.
 
@@ -91,7 +91,7 @@ The above example transaction parameters, when signed, would produce a raw, sign
 
 ### Example Use
 
-For an example of this in action, see `./build/index.html` for a test application that uses the hooked provider in conjunction with ethereumjs-accounts.
+For an example of this in action, see `./build/index.html` for a test application that uses the hooked provider in conjunction with vaporyjs-accounts.
 
 ### Develop / Contribute
 
